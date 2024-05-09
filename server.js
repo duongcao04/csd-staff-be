@@ -3,11 +3,12 @@ const cors = require('cors');
 const morgan = require('morgan');
 const createError = require('http-errors');
 const bodyParser = require('body-parser');
+const rootRouter = require('./Routes');
 require('dotenv').config();
 require('./helpers/connection_mongodb');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.json());
@@ -18,6 +19,9 @@ app.use(morgan('common'));
 app.get('/', (req, res) => {
 	res.send("Hello world!!!")
 })
+
+//Routes
+app.use('/api', rootRouter);
 
 //No match route => create error "This route does not exist"
 app.all('*', (req, res, next) => {
@@ -34,5 +38,5 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(PORT, () => {
-	console.log(`Server is running on http://localhost:${PORT}`)
+	console.log(`Server is running on:::http://localhost:${PORT}`)
 })
