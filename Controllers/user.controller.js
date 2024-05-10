@@ -54,9 +54,9 @@ const userController = {
 				throw createError.Unauthorized();
 			}
 			const accessToken = await signAccessToken(user)
-				//Don't res password in object user
-				const { password, ...others } = user._doc;
-				res.status(200).json({ status: "isOkay", elements: others, accessToken })
+			//Don't res password in object user
+			const { password, ...others } = user._doc;
+			res.status(200).json({ status: "isOkay", elements: others, accessToken })
 		} catch (error) {
 			next(error)
 		}
