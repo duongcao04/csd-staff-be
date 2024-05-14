@@ -20,11 +20,19 @@ const userController = {
 			} else {
 				// Create new user
 				const newUser = new User({
-					username: req.body.username,
 					email: req.body.email,
 					password: req.body.password,
-					avatar: req.body.avatar,
-					admin: req.body.admin,
+					information: {
+						fullname: req.body.information.fullname,
+						avatar: req.body.information.avatar,
+						contactEmail: req.body.information.contactEmail,
+						chat: req.body.information.chat,
+						location: req.body.information.location,
+						company: req.body.information.company,
+						jobTitle: req.body.information.jobTitle,
+						department: req.body.information.department,
+					},
+					role: req.body.role,
 				});
 
 				//Save user to database

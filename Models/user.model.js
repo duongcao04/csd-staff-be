@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const { required } = require("joi");
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
@@ -13,15 +14,44 @@ const UserSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	avatar: {
-		type: String,
-		default:
-			'https://png.pngtree.com/element_our/20200610/ourmid/pngtree-character-default-avatar-image_2237203.jpg',
-		trim: true,
+	information: {
+		fullname: {
+			type: String,
+			default: this.email
+		},
+		avatar: {
+			type: String,
+			default: 'https://www.csdvietnam.com/assets/img/logo.webp'
+		},
+		contactEmail: {
+			type: String,
+			default: this.email
+		},
+		chat: {
+			type:String,
+			default: '',
+		},
+		location: {
+			type:String,
+			default:'HCM City, Vietnam'
+		},
+		company: {
+			type:String,
+			default: 'CADSQUAD VIETNAM'
+		},
+		jobTitle: {
+			type: String,
+			default: 'Employeer'
+		},
+		department: {
+			type:String,
+			default: 'Engineer Department'
+		}
 	},
-	admin: {
-		type: Boolean,
-		default: false,
+	role: {
+		type: String,
+		enum: ['manager', 'engineer', 'external'],
+		default: 'external',
 	},
 }, { timestamps: true });
 
