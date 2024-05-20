@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const _CONF = require('../config')
 
-const conn = mongoose.connect(process.env.MONGO_URL);
+const conn = mongoose.connect(_CONF.URI_MONGODB);
 
 mongoose.connection.on("connected", function () {
 	console.log(`Mongodb::: connected:::${this.name}`)

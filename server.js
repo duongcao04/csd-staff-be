@@ -4,11 +4,12 @@ const morgan = require('morgan');
 const createError = require('http-errors');
 const bodyParser = require('body-parser');
 const rootRouter = require('./Routes');
-require('dotenv').config();
+const _CONF = require('./config')
 require('./helpers/connection_mongodb');
+require('./helpers/connection_redis');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = _CONF.PORT || 3001;
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.json());

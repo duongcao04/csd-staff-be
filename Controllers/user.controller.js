@@ -3,7 +3,7 @@ const createError = require("http-errors");
 const User = require('../Models/user.model');
 
 const { userValidate } = require('../helpers/validation');
-const { signAccessToken } = require('../helpers/jwt_services');
+const { signAccessToken, signRefreshToken, verifyRefreshToken } = require('../helpers/jwt_services');
 
 const userController = {
 	//REGISTER USER
@@ -61,11 +61,28 @@ const userController = {
 			if (!isValid) {
 				throw createError.Unauthorized();
 			}
-			const accessToken = await signAccessToken(user)
+			const accessToken = await signAccessToken(user);
+			const refreshToken = await signRefreshToken(user);
 			//Don't res password in object user
 			const { password, ...others } = user._doc;
-			
-			res.status(200).json({ status: "isOkay", elements: others, accessToken })
+
+			res.status(200).json({ status: "isOkay", elements: others, token: { accessToken, refreshToken } })
+		} catch (error) {
+			next(error)
+		}
+	},
+
+
+	//REFRESH TOKEN
+	refreshToken: async (req, res, next) => {
+		try {
+			const { refreshToken } = req.body;
+			if (!refreshToken) throw createError.BadRequest();
+
+			const { userId, userRole } = await verifyRefreshToken(refreshToken);
+			const newAccessToken = await signAccessToken({ id: userId, role: userRole })
+			const newRefreshToken = await signRefreshToken({ id: userId, role: userRole })
+			res.json({newAccessToken,newRefreshToken})
 		} catch (error) {
 			next(error)
 		}
