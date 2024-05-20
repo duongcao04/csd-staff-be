@@ -23,12 +23,12 @@ app.get('/', (req, res) => {
 //Routes
 app.use('/api', rootRouter);
 
-//No match route => create error "This route does not exist"
+//fowrard to handle error
 app.all('*', (req, res, next) => {
 	next(createError.NotFound("This route does not exist."))
 })
 
-//Middleware
+//handle error
 app.use((err, req, res, next) => {
 	if (!err) return next()
 	res.json({
