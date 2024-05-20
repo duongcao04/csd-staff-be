@@ -25,7 +25,7 @@ const userController = {
 					information: {
 						fullname: req.body.information.fullname,
 						avatar: req.body.information.avatar,
-						contactEmail: req.body.information.contactEmail,
+						contactEmail: req.body.information.contactEmailw,
 						chat: req.body.information.chat,
 						location: req.body.information.location,
 						company: req.body.information.company,

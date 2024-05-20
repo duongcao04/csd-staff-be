@@ -28,6 +28,8 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
+    "@azure/msal-node": "^2.8.1",
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -35,6 +37,7 @@
     "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "yargs": "^17.7.2"
   }
 }
